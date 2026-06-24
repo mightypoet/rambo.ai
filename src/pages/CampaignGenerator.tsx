@@ -1,6 +1,6 @@
 import { useState } from 'react';
 // Campaign Generator Page
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/AppCard';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';

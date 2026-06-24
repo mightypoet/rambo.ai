@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/AppCard';
 import { Button } from '@/components/ui/button';
 import { Share2, Plus } from 'lucide-react';
 import { toast } from 'sonner';

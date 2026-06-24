@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/AppCard';
 import { Button } from '@/components/ui/button';
 import { Rocket, FileText, Share2, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
