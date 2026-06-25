@@ -13,6 +13,7 @@ import { AuthProvider } from './components/AuthProvider';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 export default function App() {
+  console.log('Vercel trigger');
   return (
     <AuthProvider>
       <BrowserRouter>
