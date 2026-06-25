@@ -25,19 +25,22 @@ export default function CreativeStudio() {
     }
 
     try {
-      const response = await fetch('/api/generate-image', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt, hfKey }),
-      });
+      const response = await fetch(
+        "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
+        {
+          headers: { Authorization: `Bearer ${hfKey}`, "Content-Type": "application/json" },
+          method: "POST",
+          body: JSON.stringify({ inputs: prompt }),
+        }
+      );
 
       if (!response.ok) {
-        const err = await response.json();
-        throw new Error(err.error || 'Failed to generate image');
+        throw new Error('Failed to generate image from Hugging Face API');
       }
 
-      const data = await response.json();
-      setImageUrl(data.imageUrl);
+      const blob = await response.blob();
+      const objUrl = URL.createObjectURL(blob);
+      setImageUrl(objUrl);
       toast.success('Image generated successfully!');
     } catch (error: any) {
       toast.error(error.message);

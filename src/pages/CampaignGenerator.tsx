@@ -27,19 +27,28 @@ export default function CampaignGenerator() {
     }
 
     try {
-      const response = await fetch('/api/generate-copy', {
+      const brandContext = 'Luxury modern jewelry brand targeting affluent millennials.';
+      const systemInstruction = `You are an expert marketing copywriter. Generate a campaign based on the prompt and brand context. Return ONLY a valid JSON object with the following exact keys: headline, body_copy, social_caption, cta, hashtags, strategy_notes, creative_concept, image_prompt.`;
+      
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt, geminiKey, brandContext: 'Luxury modern jewelry brand targeting affluent millennials.' }),
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: `Brand Context: ${brandContext}\n\nPrompt: ${prompt}` }] }],
+          systemInstruction: { parts: [{ text: systemInstruction }] },
+          generationConfig: { responseMimeType: "application/json" }
+        }),
       });
 
       if (!response.ok) {
-        const err = await response.json();
-        throw new Error(err.error || 'Failed to generate');
+        throw new Error('Failed to generate from Gemini API');
       }
 
       const data = await response.json();
-      setResult(data);
+      const textResponse = data.candidates[0].content.parts[0].text;
+      const parsedResult = JSON.parse(textResponse);
+      
+      setResult(parsedResult);
       toast.success('Campaign generated successfully!');
     } catch (error: any) {
       toast.error(error.message);
